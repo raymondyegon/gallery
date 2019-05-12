@@ -8,7 +8,7 @@
         <div class="row">
 
             {% for pic in pics %}
-
+            {% with go=pic.allinfo %}
             <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
                     <img src='{{pic.image.url}}' alt="" class="card-img-top" width="100%" height="225">
@@ -19,8 +19,8 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-outline-primary" id="pic{{pic.id}}"
-                                    data-whatever="{{pic.id}}" data-toggle="modal" data-target="#ImageModal"
-                                    onclick="showinfo()" >View</button>
+                                    data-whatever="{{pic.id}}" data-toggle="modal" data-target="#{{pic.id}}"
+                                    onclick="showinfo(go)">View</button>
                             </div>
                             <small class="text-muted">{{pic.pub_date}}</small>
                         </div>
@@ -28,6 +28,7 @@
                 </div>
 
             </div>
+            {% endwith %}
             {% empty %}
 
             <h3 class="text-center"> Photos to be posted soon </h3>
@@ -37,7 +38,8 @@
         </div>
     </div>
 </div>
-<div id="ImageModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+{% for pic in pics %}
+<div id="{{pic.id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -46,17 +48,18 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body" style="text-align:center">
-                <img id="imageimage" class="imagemodal" src="">
-                <p id="imagedescription"></p>
-                <a target="_blank" class="label btn-success" id="imagedirectlink">Direct image link</a>
+                <img id="imageimage" class="imagemodal" src='{{pic.image.url}}'>
+                <p id="imagedescription">{{ pic.description }}</p>
+                <a target="_blank" href="{{pic.image.url}}" id="imagedirectlink">Direct image link</a>
             </div>
             <div class="modal-footer">
 
-                <input type="text" class="form-control" id="imagelink" value="{{pic.image}}">
+                <input type="text" class="form-control" id="imagelink" >
                 <button type="button" class="btn btn-success" onclick="copyaction()">Copy Link</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+{%endfor%}
 {% endblock %}
