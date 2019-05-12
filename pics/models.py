@@ -4,6 +4,18 @@ from imagekit.processors import ResizeToFill
 # Create your models here.
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=30)
+
+    @property
+    def preview(self):
+        first = self.images.last()
+        return first.image.url
+
+    def __str__(self):
+        return self.name
+
+
 class tags(models.Model):
     name = models.CharField(max_length=30)
 
@@ -12,7 +24,7 @@ class tags(models.Model):
 
 
 class Picture(models.Model):
-    image = models.ImageField(upload_to='articles/')
+    image = models.ImageField(upload_to='pictures/')
     image_thumbnail = ImageSpecField(source='image',
                                      processors=[ResizeToFill(100, 50)],
                                      format='JPEG',
@@ -20,9 +32,14 @@ class Picture(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(tags)
     description = models.TextField(blank=True)
-    
+    category = models.ForeignKey(Category, related_name="images", null=False, on_delete=models.CASCADE )
+
     @classmethod
     def search_by_title(cls, search_term):
         images = cls.objects.filter(title__ifcontains=search_term)
 
         return images
+
+    @classmethod
+    def get_image_by_id(cls, id):
+        return cls.objects.get(pk=id)
