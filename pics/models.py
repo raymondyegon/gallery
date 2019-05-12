@@ -32,7 +32,8 @@ class Picture(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(tags)
     description = models.TextField(blank=True)
-    category = models.ForeignKey(Category, related_name="images", null=False, on_delete=models.CASCADE )
+    category = models.ForeignKey(
+        Category, related_name="images", null=False, on_delete=models.CASCADE)
 
     @classmethod
     def search_by_title(cls, search_term):
@@ -43,3 +44,13 @@ class Picture(models.Model):
     @classmethod
     def get_image_by_id(cls, id):
         return cls.objects.get(pk=id)
+
+    @property
+    def allinfo(self):
+        info = {
+            'name': self.Name,
+            'desc': self.description,
+            'image': self.image.url,
+            'id': self.id
+        }
+        return str(info)
