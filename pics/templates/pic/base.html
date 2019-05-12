@@ -1,8 +1,5 @@
 {% load bootstrap4 %}
-{% load staticfiles%}
-
-{% load bootstrap4 %}
-{% load staticfiles%}
+{% load static%}
 <!DOCTYPE html>
 <html>
 
@@ -15,10 +12,10 @@
     <title> Gallery </title>
     {% endif %}
 
-    {# block styles #}
-    {# bootstrap_css #}
+    {% block styles %}
+    {% bootstrap_css %}
     <!-- <link rel="stylesheet" href="{% static 'css/basenews.css' %}"> -->
-    {# endblock #}
+    {% endblock %}
 
 </head>
 
@@ -26,13 +23,12 @@
     {% include "navbar.html" %}
 
     {% block content %}
-    <!-- <h1 class="text-center">IT works</h1> -->
     {%endblock%}
-
+ 
 
     {%  block scripts %}
     {% bootstrap_javascript jquery='full' %}
-
+    <script src="{% static 'js/index.js'%}"></script>
     {% endblock %}
 
 </body>
