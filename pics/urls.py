@@ -5,5 +5,5 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('')
+    path('', views.posted_pics, name='Home Page')
 ]
