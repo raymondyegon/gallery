@@ -48,7 +48,7 @@ class Picture(models.Model):
     @property
     def allinfo(self):
         info = {
-            'name': self.Name,
+            'cat': self.category,
             'desc': self.description,
             'image': self.image.url,
             'id': self.id
