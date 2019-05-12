@@ -1,6 +1,5 @@
 {%extends 'pic/base.html'%}
 {% block content %}
-{{block.super}}
 
 <div class="album py-5 bg-light">
 
@@ -12,14 +11,16 @@
 
             <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
-                    <img src="pic.image_thumbnail" alt="" class="card-img-top" width="100%" height="225">
+                    <img src='{{pic.image.url}}' alt="" class="card-img-top" width="100%" height="225">
                     <div class="card-body">
                         <p class="card-text">
                             {{ pic.description }}
                         </p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-primary">View</button>
+                                <button type="button" class="btn btn-sm btn-outline-primary" id="pic{{pic.id}}"
+                                    data-whatever="{{pic.id}}" data-toggle="modal" data-target="#ImageModal"
+                                    onclick="showinfo()" >View</button>
                             </div>
                             <small class="text-muted">{{pic.pub_date}}</small>
                         </div>
@@ -35,9 +36,27 @@
 
         </div>
     </div>
+</div>
+<div id="ImageModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="imagetitle"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align:center">
+                <img id="imageimage" class="imagemodal" src="">
+                <p id="imagedescription"></p>
+                <a target="_blank" class="label btn-success" id="imagedirectlink">Direct image link</a>
+            </div>
+            <div class="modal-footer">
 
-
-
-
+                <input type="text" class="form-control" id="imagelink" value="{{pic.image}}">
+                <button type="button" class="btn btn-success" onclick="copyaction()">Copy Link</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
