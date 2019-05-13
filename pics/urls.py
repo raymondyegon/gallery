@@ -5,5 +5,6 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', views.posted_pics, name='Home Page')
+    path('', views.posted_pics, name='Home'),
+    path('search/', views.search_results, name='search_results')
 ]
