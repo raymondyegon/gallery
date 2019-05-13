@@ -19,8 +19,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-outline-primary" id="pic{{pic.id}}"
-                                    data-whatever="{{pic.id}}" data-toggle="modal" data-target="#{{pic.id}}"
-                                    onclick="showinfo(go)">View</button>
+                                    data-whatever="{{pic.id}}" data-toggle="modal" data-target="#{{pic.id}}">View</button>
                             </div>
                             <small class="text-muted">{{pic.pub_date}}</small>
                         </div>
@@ -41,20 +40,20 @@
 {% for pic in pics %}
 <div id="{{pic.id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable ">
+        <div class="modal-content bg-secondary">
             <div class="modal-header">
                 <h4 class="modal-title" id="imagetitle"></h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body" style="text-align:center">
-                <img id="imageimage" class="imagemodal" src='{{pic.image.url}}'>
+                <img id="imageimage" class="figure-img img-fluid rounded" src='{{pic.image.url}}'>
                 <p id="imagedescription">{{ pic.description }}</p>
-                <a target="_blank" href="{{pic.image.url}}" id="imagedirectlink">Direct image link</a>
+                <a target="_blank" href="{{pic.image.url}}" id="imagedirectlink" class="btn btn-primary" >Direct image link</a>
             </div>
             <div class="modal-footer">
 
-                <input type="text" class="form-control" id="imagelink" >
+                <input type="text" class="form-control" id="imagelink" value="{{pic.image.url}}" >
                 <button type="button" class="btn btn-success" onclick="copyaction()">Copy Link</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
